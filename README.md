@@ -4,7 +4,7 @@ A simple Proof of Concept that connects Meta Lead Ads to a React Native mobile a
 
 ---
 
-## 🛠️ How It Works
+## How It Works
 
 1. **Meta Lead Form**: A lead is submitted using the Meta Lead Ads Testing Tool.
 2. **Webhook**: Meta sends a `POST` request to our Node.js backend via a secure Cloudflare tunnel.
@@ -30,7 +30,7 @@ A simple Proof of Concept that connects Meta Lead Ads to a React Native mobile a
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### 1. Start the Backend
 ```bash
@@ -60,7 +60,7 @@ npx expo start
 
 ---
 
-## ⚙️ Connecting to Meta Developer Portal
+## Connecting to Meta Developer Portal
 
 1. Go to [developers.facebook.com](https://developers.facebook.com) > Your App > **Webhooks** > **Page**.
 2. Set **Callback URL** to `https://your-tunnel-url.trycloudflare.com/webhook`.
@@ -70,55 +70,14 @@ npx expo start
 
 ---
 
-<<<<<<< HEAD
-## 🧪 Quick In-App Testing
-You can also test the real-time stream without opening Meta:
-- Tap the **`⚡ Test Lead`** button in the mobile app header.
-- A new lead card will instantly pop up at the top of your screen!
-=======
-## 🧪 3 Instant Testing Modes
-
-| Mode | Command / Action | What Happens |
-| :--- | :--- | :--- |
-| 1. Official Meta Tool** | Click Create Lead in [Lead Ads Testing Tool](https://developers.facebook.com/tools/lead-ads-testing) | Fires live webhook $\rightarrow$ Tunnel $\rightarrow$ Backend $\rightarrow$ App |
-| 2. In-App Direct** | Tap **`⚡ Test Lead`** in mobile header | Instantly broadcasts a mock enriched lead |
-| 3. Terminal cURL** | `Invoke-RestMethod -Uri "http://localhost:5000/api/test-lead" -Method Post` | Tests backend-to-mobile socket pipeline |
-<<<<<<< HEAD
->>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
 
 
-<<<<<<< HEAD
-## 🎥 Loom Video Links
-- **Video 1 (Live Demo)**: *[Insert your Loom Video 1 link here]*
-- **Video 2 (Code & Architecture Walkthrough)**: *[Insert your Loom Video 2 link here]*
-=======
-Project Architecture
->>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
-=======
 
-
-Project Architecture
->>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
-
-
-<<<<<<< HEAD
-For design decisions and trade-offs, check out **[ASSUMPTIONS.md](./ASSUMPTIONS.md)**.
-
-<<<<<<< HEAD
-=======
-=======
----
-
->>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
 Key Engineering Highlights
 
-* Sub-50ms Latency: Native WebSocket connection eliminates polling battery drain.
-* Instant 200 OK Response: Responds to Meta within 10ms to prevent webhook retry spam.
-* Graceful Fallback Mode: If Meta API tokens are absent during dev/testing, the backend synthesizes realistic mock data so evaluation is never blocked.
-* Client-Side Deduplication: Filters lead events by ID to prevent duplicate UI entries.
-* Runtime Network Switcher: In-app settings to toggle between `localhost`, Android `10.0.2.2`, or live tunnel URLs dynamically.
+Sub-50ms Latency: Native WebSocket connection eliminates polling battery drain.
+Instant 200 OK Response: Responds to Meta within 10ms to prevent webhook retry spam.
+Graceful Fallback Mode: If Meta API tokens are absent during dev/testing, the backend synthesizes realistic mock data so evaluation is never blocked.
+Client-Side Deduplication: Filters lead events by ID to prevent duplicate UI entries.
+Runtime Network Switcher: In-app settings to toggle between `localhost`, Android `10.0.2.2`, or live tunnel URLs dynamically.
 
-<<<<<<< HEAD
->>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
-=======
->>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
