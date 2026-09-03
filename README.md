@@ -113,3 +113,162 @@ unque_real_time/
 * 📄 **[ASSUMPTIONS.md](./ASSUMPTIONS.md)**: Engineering trade-offs & scaling decisions.
 * 🎙️ **[LOOM_SCRIPTS.md](./LOOM_SCRIPTS.md)**: Exact presentation transcripts.
 
+<<<<<<< HEAD
+=======
+1. Open a terminal and navigate to the backend directory:
+   ```bash
+   cd backend
+   npm install
+   ```
+
+2. Configure environment variables in `backend/.env`:
+   ```env
+   # Server Port
+   PORT=5000
+
+   # Meta Webhook Verification Token (Matches Meta App settings)
+   META_VERIFY_TOKEN=meta_leads_secret_token_12345
+
+   # Meta Graph API Page Access Token (Optional in dev mode)
+   META_PAGE_ACCESS_TOKEN=
+
+   # Meta Graph API Version
+   META_GRAPH_API_VERSION=v19.0
+   ```
+
+3. Start the backend server:
+   ```bash
+   npm run dev
+   ```
+   *Expected output:*
+   ```text
+   🚀 Server listening on http://localhost:5000
+   📡 Socket.io real-time engine ready
+   ```
+
+---
+
+### Step 5.2: Launch Public HTTPS Tunnel
+
+In a separate terminal, expose port `5000` to the internet using Cloudflare Tunnel:
+```bash
+npx cloudflared tunnel --url http://localhost:5000
+```
+*Note the generated public URL (e.g. `https://your-tunnel-name.trycloudflare.com`).*
+
+---
+
+### Step 5.3: Mobile Application Setup
+
+1. Open another terminal and navigate to `mobile/`:
+   ```bash
+   cd mobile
+   npm install --legacy-peer-deps
+   ```
+
+2. Start the Expo development server:
+   ```bash
+   npx expo start
+   ```
+
+3. Launch on your desired target:
+   - **Android Emulator**: Press **`a`** (Ensure Android Emulator is booted).
+   - **Web Browser Preview**: Press **`w`** (Opens at `http://localhost:8081`).
+   - **Physical Device**: Scan the QR code using the **Expo Go** app.
+
+---
+
+## 6. Meta Developer Portal & Webhook Configuration
+
+### 6.1 Create Meta Business App
+1. Navigate to **[Meta for Developers](https://developers.facebook.com/apps)**.
+2. Click **Create App** $\rightarrow$ Select **Other** $\rightarrow$ Choose **Business** as the app type.
+3. Name the app `Meta Leads PoC` and complete creation.
+
+### 6.2 Configure Webhook Subscription
+1. Under **Add Products**, locate **Webhooks** and click **Set up**.
+2. Select **Page** from the dropdown menu.
+3. Click **Subscribe to this object** (or Edit Subscription):
+   - **Callback URL**: `https://<YOUR_CLOUDFLARE_SUBDOMAIN>.trycloudflare.com/webhook`
+   - **Verify Token**: `meta_leads_secret_token_12345`
+4. Click **Verify and Save**.
+5. In the Webhook Fields table, locate **`leadgen`** and toggle it to **Subscribed**.
+
+### 6.3 Link Facebook Page
+1. Ensure your dummy Facebook Page is subscribed under **Page Subscriptions** inside the Meta Webhooks dashboard.
+
+---
+
+## 7. Verification & Testing Guide
+
+### Test Mode A: Official Meta Lead Ads Testing Tool (Primary Requirement)
+1. Open the **[Meta Lead Ads Testing Tool](https://developers.facebook.com/tools/lead-ads-testing)**.
+2. Select your **Page** and **Instant Lead Form**.
+3. If an existing test lead exists, click **Delete Lead** first.
+4. Click the blue **Create Lead** button.
+5. **Verify**: The lead appears instantaneously at the top of the mobile screen on your device with **zero manual refresh**.
+
+### Test Mode B: In-App Direct Trigger (Developer Verification)
+1. Open the mobile app.
+2. Tap the **`⚡ Test Lead`** button in the header.
+3. **Verify**: A simulated lead with realistic contact fields is synthesized by the backend and broadcasted to all connected devices.
+
+### Test Mode C: PowerShell / Terminal cURL
+```powershell
+Invoke-RestMethod -Uri "http://localhost:5000/api/test-lead" -Method Post -ContentType "application/json" -Body '{"fullName": "Rahul Sharma", "company": "Infosys", "formName": "Website Contact Form"}'
+```
+
+---
+
+## 8. API & Webhook Specifications
+
+### `GET /webhook` (Meta Handshake Verification)
+- **Query Parameters**:
+  - `hub.mode`: `"subscribe"`
+  - `hub.verify_token`: Verification string defined in `.env`
+  - `hub.challenge`: Random integer/string issued by Meta
+- **Response**: Returns `hub.challenge` with `200 OK` if token matches; `403 Forbidden` otherwise.
+
+### `POST /webhook` (Meta Event Ingestion)
+- **Payload Structure**:
+  ```json
+  {
+    "object": "page",
+    "entry": [{
+      "id": "PAGE_ID",
+      "time": 1725240000,
+      "changes": [{
+        "field": "leadgen",
+        "value": {
+          "leadgen_id": "1234567890123456",
+          "form_id": "987654321098765",
+          "created_time": 1725240000
+        }
+      }]
+    }]
+  }
+  ```
+- **Response**: Immediately sends `200 EVENT_RECEIVED` to satisfy Meta's 20-second timeout threshold.
+
+### WebSocket Event: `new_lead`
+- **Emission**: `io.emit('new_lead', leadObject)`
+- **Data Contract**:
+  ```typescript
+  interface Lead {
+    id: string;
+    leadgenId: string;
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    company: string;
+    formName: string;
+    adName: string;
+    createdAt: string;
+    receivedAt: string;
+    isSimulated: boolean;
+  }
+  ```
+
+---
+
+>>>>>>> 658604ffcb09312d7ea39a3ca82a0a5cd7f23319
