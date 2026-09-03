@@ -278,23 +278,3 @@ Invoke-RestMethod -Uri "http://localhost:5000/api/test-lead" -Method Post -Conte
 
 ---
 
-## 9. Troubleshooting & FAQ
-
-#### Q1: Why does Meta say "The callback URL or verify token couldn't be validated"?
-- **Check 1**: Ensure your backend server is actively running on port 5000 (`npm run dev`).
-- **Check 2**: Verify that your Cloudflare Tunnel is running and forwarding to `http://localhost:5000`.
-- **Check 3**: Ensure `/webhook` is appended to your callback URL in Meta.
-
-#### Q2: Why does Android Emulator fail to connect to `localhost:5000`?
-- On Android emulators, `localhost` refers to the emulator's internal loopback. Use `http://10.0.2.2:5000` or configure it via the in-app **Settings (⚙️)** modal.
-
----
-
-## 10. Deliverables & Video Demonstration Links
-
-| Deliverable | Description | Resource Link |
-| :--- | :--- | :--- |
-| **Video 1: Live Demo** | Split-screen live demonstration of Meta Lead Tool $\rightarrow$ React Native zero-touch update (Max 5 mins) | *[Add your Loom Video 1 URL here]* |
-| **Video 2: Architecture** | Deep dive into codebase, Webhook security, and Socket.io stream (4–5 mins) | *[Add your Loom Video 2 URL here]* |
-| **Technical Assumptions** | Documentation of design trade-offs and scaling strategies | [ASSUMPTIONS.md](./ASSUMPTIONS.md) |
-| **Video Presentation Scripts** | Word-for-word scripts for recording both demonstration videos | [LOOM_SCRIPTS.md](./LOOM_SCRIPTS.md) |
