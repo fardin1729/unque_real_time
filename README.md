@@ -83,6 +83,7 @@ You can also test the real-time stream without opening Meta:
 | 1. Official Meta Tool** | Click Create Lead in [Lead Ads Testing Tool](https://developers.facebook.com/tools/lead-ads-testing) | Fires live webhook $\rightarrow$ Tunnel $\rightarrow$ Backend $\rightarrow$ App |
 | 2. In-App Direct** | Tap **`⚡ Test Lead`** in mobile header | Instantly broadcasts a mock enriched lead |
 | 3. Terminal cURL** | `Invoke-RestMethod -Uri "http://localhost:5000/api/test-lead" -Method Post` | Tests backend-to-mobile socket pipeline |
+<<<<<<< HEAD
 >>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
 
 
@@ -93,12 +94,22 @@ You can also test the real-time stream without opening Meta:
 =======
 Project Architecture
 >>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
+=======
 
 
+Project Architecture
+>>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
+
+
+<<<<<<< HEAD
 For design decisions and trade-offs, check out **[ASSUMPTIONS.md](./ASSUMPTIONS.md)**.
 
 <<<<<<< HEAD
 =======
+=======
+---
+
+>>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
 Key Engineering Highlights
 
 * Sub-50ms Latency: Native WebSocket connection eliminates polling battery drain.
@@ -107,4 +118,7 @@ Key Engineering Highlights
 * Client-Side Deduplication: Filters lead events by ID to prevent duplicate UI entries.
 * Runtime Network Switcher: In-app settings to toggle between `localhost`, Android `10.0.2.2`, or live tunnel URLs dynamically.
 
+<<<<<<< HEAD
+>>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
+=======
 >>>>>>> 218fbc8c4111f3c71275d27c1b3db91663268007
